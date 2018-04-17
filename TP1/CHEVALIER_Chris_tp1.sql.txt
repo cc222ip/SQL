@@ -1,0 +1,106 @@
+0-
+SELECT ename
+FROM emp
+WHERE job <> 'CLERK' or deptno in (SELECT deptno
+                                  FROM emp
+                                  WHERE deptno = 10 and job = 'MANAGER');
+
+1-
+SELECT ename
+FROM emp
+WHERE job='PRESIDENT' or job='MANAGER' or job='ANALYST';
+
+2-
+SELECT count(distinct job)
+FROM emp;
+
+3-
+SELECT ename
+FROM emp
+WHERE ename like '%AM%';
+
+3*-
+SELECT ename
+FROM emp
+WHERE ename not like '__A%';
+
+4-
+SELECT avg(sal)
+FROM emp
+WHERE job='MANAGER';
+
+5-
+SELECT ename
+FROM emp
+WHERE comm is NULL or comm=0;
+
+5*-
+SELECT ename
+FROM emp
+WHERE job='SALESMAN' and comm is NULL or comm=0;
+
+6-
+SELECT *
+FROM emp
+WHERE job='SALESMAN' and deptno=20 or job='MANAGER' and deptno=20;
+
+7-
+SELECT ename, sal
+FROM emp
+ORDER BY sal;
+
+8-
+SELECT ename
+FROM emp
+WHERE ename between 'B' and 'K';
+
+9-
+SELECT ename, sal+COALESCE(comm, 0) as "salaire_total"
+FROM emp
+WHERE deptno=10;
+
+10-
+SELECT ename
+FROM emp
+WHERE empno in (SELECT mgr
+                FROM emp);
+
+
+11-
+SELECT ename, sal
+FROM emp
+WHERE ename <> 'SMITH' and sal >= (SELECT sal
+                                   FROM emp
+                                   WHERE ename='SMITH');
+
+12-
+SELECT ename, sal
+FROM emp
+WHERE sal > (SELECT min(sal)
+             FROM emp
+             WHERE deptno=20);
+
+12*-
+SELECT ename
+FROM emp
+WHERE sal > (SELECT max(sal)
+             FROM emp
+             WHERE deptno=20);
+
+13-
+SELECT ename
+FROM emp
+WHERE deptno = 10 and job in (SELECT job
+                              FROM emp
+                              WHERE deptno = 20);
+
+14-
+SELECT dname
+FROM dept
+WHERE deptno not in (SELECT deptno
+                     FROM emp);
+
+15-
+SELECT ename, hiredate, sal
+FROM emp
+WHERE sal <= 1300;
